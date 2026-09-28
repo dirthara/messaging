@@ -67,7 +67,8 @@ final readonly class CompleteOrder
 no answer to wait for: publishing is always one-way.
 
 Which publisher the application passes in decides where the message goes. A
-[`RoutingMessagePublisher`](routing.md) sends each message type to its own publisher, and a
+[`RoutingMessagePublisher`](routing.md) sends each message type to its own publisher, configured through the
+`MessageRouter` contract, and a
 [`FakeMessagePublisher`](testing.md) records messages in tests.
 
 ## What this package does not do
@@ -88,5 +89,5 @@ Application code that publishes through `MessagePublisher` does not change when 
 | --- | --- |
 | [Installation](installation.md) | Requirements and installation. |
 | [Publishing messages](publishing.md) | What a successful `publish()` means, what to put in a message, and publishing to other systems. |
-| [Routing messages](routing.md) | Sending each message type to its own publisher, and the exceptions routing throws. |
+| [Routing messages](routing.md) | Sending each message type to its own publisher, the `MessageRouter` contract, and the exceptions routing throws. |
 | [Testing](testing.md) | Recording published messages in tests with `FakeMessagePublisher`. |

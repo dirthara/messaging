@@ -2,7 +2,7 @@
 id: routing
 title: Routing messages
 sidebar_position: 4
-description: Send each message type to its own publisher with RoutingMessagePublisher, and what routing throws.
+description: Send each message type to its own publisher with RoutingMessagePublisher and MessageRouter.
 ---
 
 ## Route messages to publishers
@@ -35,6 +35,53 @@ depends only on `MessagePublisher`, and does not know which destination each mes
 
 `publish()` passes the message it is given, the same instance, to the routed publisher exactly once. It does not copy,
 change, serialise, or wrap it.
+
+## Configure routes through MessageRouter
+
+Registering routes is described by its own contract, `Dirthara\Messaging\Contract\MessageRouter`, which
+`RoutingMessagePublisher` implements:
+
+```php
+namespace Dirthara\Messaging\Contract;
+
+use Dirthara\Messaging\Exception\MessagingException;
+
+interface MessageRouter
+{
+    /**
+     * @param class-string $message
+     *
+     * @throws MessagingException
+     */
+    public function route(string $message, MessagePublisher $publisher): void;
+}
+```
+
+A router that cannot accept a route throws a `MessagingException`, so code that configures routes can catch one type
+whichever router it is given. `RoutingMessagePublisher` throws the specific exceptions [listed below](#exceptions).
+
+Code that sets routes up, such as a module registering its own messages, can depend on `MessageRouter`, while code that
+publishes depends on `MessagePublisher`. Neither needs the concrete class:
+
+```php
+use Dirthara\Messaging\Contract\MessageRouter;
+use Dirthara\Messaging\Contract\MessagePublisher;
+
+final readonly class BillingMessages
+{
+    public function __construct(
+        private MessagePublisher $queue,
+    ) {}
+
+    public function register(MessageRouter $router): void
+    {
+        $router->route(GenerateInvoice::class, $this->queue);
+    }
+}
+```
+
+The same `RoutingMessagePublisher` instance is passed as the `MessageRouter` while the application configures it, and
+as the `MessagePublisher` to the code that publishes. The rules below are those of `RoutingMessagePublisher`.
 
 ## Routes match the exact class
 

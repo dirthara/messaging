@@ -10,6 +10,7 @@ use RuntimeException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestWith;
+use Dirthara\Messaging\Contract\MessageRouter;
 use Dirthara\Messaging\RoutingMessagePublisher;
 use Dirthara\Messaging\Tests\Fixtures\Traceable;
 use Dirthara\Messaging\Contract\MessagePublisher;
@@ -36,6 +37,25 @@ final class RoutingMessagePublisherTest extends TestCase
     public function it_is_a_message_publisher(): void
     {
         self::assertInstanceOf(MessagePublisher::class, new RoutingMessagePublisher());
+    }
+
+    #[Test]
+    public function it_is_a_message_router(): void
+    {
+        self::assertInstanceOf(MessageRouter::class, new RoutingMessagePublisher());
+    }
+
+    #[Test]
+    public function it_publishes_through_the_routes_configured_on_it_as_a_message_router(): void
+    {
+        $router = new RoutingMessagePublisher();
+        $publisher = new RecordingPublisher();
+        $message = new GenerateInvoice('INV-1');
+
+        self::configure($router, $publisher);
+        $router->publish($message);
+
+        self::assertSame([$message], $publisher->published);
     }
 
     #[Test]
@@ -337,5 +357,10 @@ final class RoutingMessagePublisherTest extends TestCase
             self::assertCount(1, $failing->published);
             self::assertSame([], $other->published);
         }
+    }
+
+    private static function configure(MessageRouter $router, MessagePublisher $publisher): void
+    {
+        $router->route(GenerateInvoice::class, $publisher);
     }
 }

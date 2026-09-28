@@ -5,8 +5,8 @@
 # Dirthara Messaging
 
 Transport-neutral, one-way message publishing for the Dirthara framework: a `MessagePublisher` contract for handing
-responsibility for plain PHP objects to messaging infrastructure, a publisher that routes each message type to its own
-publisher, and a fake publisher for tests.
+responsibility for plain PHP objects to messaging infrastructure, a `MessageRouter` contract and a publisher that routes
+each message type to its own publisher, and a fake publisher for tests.
 
 Usage guides and API documentation live in [`docs`](docs/intro.md), starting with
 [publishing messages](docs/publishing.md). They are published on the Dirthara documentation site at

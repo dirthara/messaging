@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dirthara\Messaging;
 
 use ReflectionClass;
+use Dirthara\Messaging\Contract\MessageRouter;
 use Dirthara\Messaging\Contract\MessagePublisher;
 use Dirthara\Messaging\Exception\InvalidMessageTypeException;
 use Dirthara\Messaging\Exception\MessageRouteNotFoundException;
@@ -14,7 +15,7 @@ use function class_exists;
 use function array_key_exists;
 use function interface_exists;
 
-final class RoutingMessagePublisher implements MessagePublisher
+final class RoutingMessagePublisher implements MessagePublisher, MessageRouter
 {
     /**
      * @var array<class-string, MessagePublisher>
