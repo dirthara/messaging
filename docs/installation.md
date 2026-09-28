@@ -12,16 +12,11 @@ Composer dependencies beyond PHP.
 
 ## Package installation
 
-Once published, install the package using Composer:
+Install the package using Composer:
 
 ```sh
 composer require dirthara/messaging
 ```
-
-:::caution
-There is no published release yet. The command above describes the intended
-installation after publication.
-:::
 
 For development, follow the Docker and Composer setup in the repository's
 [README](https://github.com/dirthara/messaging#readme). Development tooling
