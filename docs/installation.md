@@ -2,7 +2,7 @@
 id: installation
 title: Installation
 sidebar_position: 2
-description: Requirements and installation status for Dirthara Messaging.
+description: Requirements and installation of Dirthara Messaging.
 ---
 
 ## Requirements

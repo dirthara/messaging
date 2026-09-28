@@ -4,8 +4,12 @@
 
 # Dirthara Messaging
 
-Messaging for the Dirthara framework. This repository is the initial package scaffold; no public API or release is available yet. Usage 
-documentation lives in [`docs`](docs/intro.md) and is published on the Dirthara documentation site at 
+Transport-neutral, one-way message publishing for the Dirthara framework: a `MessagePublisher` contract for handing
+responsibility for plain PHP objects to messaging infrastructure, a publisher that routes each message type to its own
+publisher, and a fake publisher for tests.
+
+Usage guides and API documentation live in [`docs`](docs/intro.md), starting with
+[publishing messages](docs/publishing.md). They are published on the Dirthara documentation site at
 <https://dirthara.github.io/docs/>, which documents every package in the framework.
 
 ## Installation
@@ -46,9 +50,6 @@ docker compose exec php composer test
 ```
 
 Tests belong in `tests`, under `Dirthara\Messaging\Tests`. Source belongs in `src`, under `Dirthara\Messaging`.
-
-The package starts with its exception interface, `Dirthara\Messaging\Exception\MessagingException`, and the 
-`HasExceptionContext` trait every exception uses to carry its context, both covered by tests.
 
 ## Code quality
 

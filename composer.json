@@ -1,6 +1,6 @@
 {
     "name": "dirthara/messaging",
-    "description": "Messaging for the Dirthara framework",
+    "description": "Transport-neutral, one-way message publishing for PHP and the Dirthara framework",
     "type": "library",
     "homepage": "https://dirthara.github.io/docs/",
     "require": {

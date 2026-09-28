@@ -127,6 +127,7 @@ permit = ["@all"]
 # CS-1 §15: classes are final.
 [[guard.structural.rules]]
 on = "Dirthara\\Messaging\\**"
+not-on = "Dirthara\\Messaging\\Tests\\Fixtures\\Inheritance\\**"
 target = "class"
 must-be-final = true
 reason = "Classes are final (CS-1 §15)."

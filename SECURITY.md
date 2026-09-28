@@ -22,10 +22,17 @@ advisory crediting the reporter unless they prefer otherwise.
 
 ## Scope
 
-This repository currently contains package infrastructure and no public
-implementation. Report security issues in this package's code or development
-configuration. As the package's behaviour is introduced, update this policy
-with its security boundaries.
+The package defines one-way message publishing, routes each message type to one publisher, and records published
+messages in a test fake. In scope are flaws in that behaviour and in the package's development configuration, such as:
+
+- a route accepted for a type no message can have, or a second route silently replacing the first;
+- a message routed to a publisher other than the one registered for its exact class, or discarded instead of refused;
+- a message published more than once, or altered on its way to the routed publisher;
+- an exception message or context disclosing a message's contents, or letting a message type forge a log line.
+
+Out of scope: this package has no queue, worker, broker, remote transport, message serialisation, or retry
+infrastructure. Security issues in those, and in the publishers other packages provide, belong to the package or
+implementation that provides them.
 
 Bugs in PHP or third-party dependencies should also be reported upstream.
 Application code and the sensitivity of data an application chooses to store
